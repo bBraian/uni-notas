@@ -1,0 +1,19 @@
+{
+    "name": "unisinos/notas",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Unisinos\\Notas\\": "src/"
+        },
+        "files": [
+        	"config.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "braianviacavadeavila",
+            "email": "braianvoficial@gmail.com"
+        }
+    ],
+    "require": {}
+}
