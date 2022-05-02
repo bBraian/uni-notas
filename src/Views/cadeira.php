@@ -1,6 +1,8 @@
 <?php
 require_once '../../vendor/autoload.php';
 
+$cadeira_post = isset($_GET['id'])?$_GET['id']:0;
+
 use Unisinos\Notas\Models\UniNotas;
 $uniNotas = new UniNotas();
 
@@ -29,14 +31,14 @@ $uniNotas = new UniNotas();
     </header>
 
     <div class="buttons">
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 4px"><i class="fa-solid fa-graduation-cap"></i> Nova Cadeira</button>
+        <button type="button" class="btn btn-outline-danger" id="btn-voltar" style="margin-right: 4px"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModale" style="margin-left: 4px"><i class="fa-solid fa-plus"></i> Nota</button>
     </div>
 
     <div class="space">
         <div class="body-table">
             <?php 
-                $cadeiras = $uniNotas->getCadeira();
+                $cadeiras = $uniNotas->getCadeira($cadeira_post);
                 for($i = 0; $i < $cadeiras['qtd']; $i++) {
             ?>
             
@@ -100,33 +102,6 @@ $uniNotas = new UniNotas();
 
         </div>
     </div>
-
-    <!-- MODAL -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Criar novo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Nome Cadeira</label>
-                    <input class="form-control" type="text" id="nome_cadeira_modal">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Cor</label>
-                    <input type="color" class="form-control form-control-color" id="cor_modal" value="#563d7c">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="nova_cadeira">Salvar</button>
-            </div>
-            </div>
-        </div>
-    </div>
-    <!-- /MODAL -->
 
     <!-- MODAL ADD NOTA -->
     <div class="modal fade" id="exampleModale" tabindex="-1" aria-labelledby="exampleModaleLabel" aria-hidden="true">

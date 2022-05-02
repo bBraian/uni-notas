@@ -19,11 +19,17 @@ class UniNotas {
         $stmt->execute();
     }
 
-    public function getCadeira() {
+    public function getCadeira($cadeira="") {
+        if($cadeira!="") {
+            $where = "id = '".$cadeira."'";
+        } else {
+            $where = "1=1";
+        }
         $sql="SELECT n.*, 
         (SELECT SUM(a.nota) FROM unisinos_notas a WHERE a.grau = 'A' AND n.id = a.unisinos_notas_id) AS nota_ga,
         (SELECT SUM(b.nota) FROM unisinos_notas b WHERE b.grau = 'B' AND n.id = b.unisinos_notas_id) AS nota_gb
         FROM unisinos_cadeiras n
+        WHERE ".$where."
         ORDER BY n.`status` DESC";
         $stmt = $this->connPdo->prepare($sql);
         $stmt->execute();
@@ -32,7 +38,8 @@ class UniNotas {
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             $retorno = [
                 "qtd" => $qtd,
-                "cadeira" => $result
+                "cadeira" => $result,
+                "sql" => $sql
             ];
             return $retorno;
         } else {

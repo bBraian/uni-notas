@@ -110,3 +110,8 @@ header {
 .margin-spacer{
     margin: 15px 0;
 }
+
+.row-chair {
+    text-decoration: none;
+    color:rgb(58, 58, 58)
+}

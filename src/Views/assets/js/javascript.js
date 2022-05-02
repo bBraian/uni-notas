@@ -155,3 +155,11 @@ $('#nova_nota').on('click', () => {
         }
     });
 })
+
+$('#btn-voltar').on('click', () => {
+    window.location.href = 'http://localhost/uni-notas/src/Views/index.php';
+})
+
+function openCadeira(id) {
+    window.location.href = 'http://localhost/uni-notas/src/Views/cadeira.php?id='+id;
+}
