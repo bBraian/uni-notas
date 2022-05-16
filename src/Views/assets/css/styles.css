@@ -37,6 +37,8 @@ header {
     display: flex;
     flex: 1;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .body-table {
@@ -114,4 +116,87 @@ header {
 .row-chair {
     text-decoration: none;
     color:rgb(58, 58, 58)
+}
+
+.line-cadeira {
+    display: flex;
+    border-radius: 15px;
+    width: 100%;
+    height: 40px;
+    background: #ccc;
+    transition: all 0.20s ease-in-out;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    font-weight: 700;
+    position: relative;
+    z-index: 5;
+}
+
+.line-cadeira:hover{
+    opacity: 0.90;
+    cursor: pointer;
+}
+
+.group-grau {
+    padding: 2px 8px 10px 8px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    background-color: rgb(235, 235, 235);
+    border-radius: 0 0 12px 12px;
+}
+
+.line-cinza{
+    width: 100%;
+    height: 10px;
+    background-color: rgb(235, 235, 235);
+    z-index: 1;
+    margin-top: -10px;
+}
+
+.line-nota {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 55px;
+    border-radius: 15px;
+    margin-top: 8px;
+    background-color: rgb(255, 255, 255);
+}
+
+.desc-nota{
+    display: flex;
+    width: 84%;
+    height: 100%;
+    align-items: center;
+    margin: 0 20px
+}
+
+.editors-nota{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 16%;
+    height: 100%;
+}
+
+.text-nota {
+    font-size: larger;
+    font-weight: 500;
+}
+
+.fa-pen-to-square, .fa-trash-can{
+    transition: all 0.2s ease-in-out;
+}
+
+.fa-pen-to-square:hover{
+    color: yellow;
+    cursor: pointer;
+}
+.fa-trash-can:hover{
+    color: red;
+    cursor: pointer;
 }

@@ -31,7 +31,8 @@ $uniNotas = new UniNotas();
     </header>
 
     <div class="buttons">
-        <button type="button" class="btn btn-outline-danger" id="btn-voltar" style="margin-right: 4px"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+        <button type="button" class="btn btn-outline-primary" id="btn-voltar" style="margin-right: 4px"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+        <button type="button" class="btn btn-outline-danger" id="btn-voltar" style="margin:0 4px"><i class="fa-solid fa-trash"></i> Excluir</button>
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModale" style="margin-left: 4px"><i class="fa-solid fa-plus"></i> Nota</button>
     </div>
 
@@ -42,63 +43,104 @@ $uniNotas = new UniNotas();
                 for($i = 0; $i < $cadeiras['qtd']; $i++) {
             ?>
             
-            <a href="javascript:void(0)" onclick="openCadeira(<?=$cadeiras['cadeira'][$i]['id'];?>)" class="row-chair">
-                <div class="line">
-                    <div class="line-title" style="background-color: <?=$cadeiras['cadeira'][$i]['cor'];?>">
-                        <?=($cadeiras['cadeira'][$i]['status']) == 1 ? "<i class='fa-solid fa-circle-check' style='margin-right: 25px'></i>" : "<i class='fa-solid fa-hourglass' style='margin-right: 25px'></i>";?>
-                        <span class="span-line-title"><?=$cadeiras['cadeira'][$i]['nome_cadeira'];?></span>
+            <div class="line">
+                <div class="line-title" style="background-color: <?=$cadeiras['cadeira'][$i]['cor'];?>">
+                    <?=($cadeiras['cadeira'][$i]['status']) == 1 ? "<i class='fa-solid fa-circle-check' style='margin-right: 25px'></i>" : "<i class='fa-solid fa-hourglass' style='margin-right: 25px'></i>";?>
+                    <span class="span-line-title"><?=$cadeiras['cadeira'][$i]['nome_cadeira'];?></span>
+                </div>
+                <div class="line-body">
+                    <div class="GA">
+                        <span>GA</span>
+                        <?php if($cadeiras['cadeira'][$i]['nota_ga'] != 0) { ?>
+                            <span><?=number_format($cadeiras['cadeira'][$i]['nota_ga'], 1, ',', '');?></span>
+                        <?php } else { ?>
+                            <span>0</span>
+                        <?php } ?>
                     </div>
-                    <div class="line-body">
-                        <div class="GA">
-                            <span>GA</span>
+                    <?php if($cadeiras['cadeira'][$i]['nota_gb'] != 0) { ?>
+                    <div class="GB">
+                        <span>GB</span>
+                        <span><?=number_format($cadeiras['cadeira'][$i]['nota_gb'], 1, ',', '');?></span>
+                    </div>
+                    <?php } ?>
+                    <?php if($cadeiras['cadeira'][$i]['status'] == 2) { ?>
+                        <div class="GF">
+                            <span>Faltam</span>
                             <?php if($cadeiras['cadeira'][$i]['nota_ga'] != 0) { ?>
-                                <span><?=number_format($cadeiras['cadeira'][$i]['nota_ga'], 1, ',', '');?></span>
+                                <span><?=number_format($uniNotas->calculaNotaFalta($cadeiras['cadeira'][$i]['nota_ga']), 1, ',', '');?></span>
                             <?php } else { ?>
-                                <span>0</span>
+                                <span><?=number_format($uniNotas->calculaNotaFalta(0), 1, ',', '');?></span>
                             <?php } ?>
+                            
                         </div>
-                        <?php if($cadeiras['cadeira'][$i]['nota_gb'] != 0) { ?>
-                        <div class="GB">
-                            <span>GB</span>
-                            <span><?=number_format($cadeiras['cadeira'][$i]['nota_gb'], 1, ',', '');?></span>
-                        </div>
-                        <?php } ?>
-                        <?php if($cadeiras['cadeira'][$i]['status'] == 2) { ?>
-                            <div class="GF">
-                                <span>Faltam</span>
-                                <?php if($cadeiras['cadeira'][$i]['nota_ga'] != 0) { ?>
-                                    <span><?=number_format($uniNotas->calculaNotaFalta($cadeiras['cadeira'][$i]['nota_ga']), 1, ',', '');?></span>
-                                <?php } else { ?>
-                                    <span><?=number_format($uniNotas->calculaNotaFalta(0), 1, ',', '');?></span>
-                                <?php } ?>
-                                
-                            </div>
-                        <?php } ?>
-                        
-                    </div>
-                    <div class="line-end" 
-                        style="background-color: 
-                        <?php
-                            $media = number_format($uniNotas->calculaMedia($cadeiras['cadeira'][$i]['nota_ga'] == null ? '0' : $cadeiras['cadeira'][$i]['nota_ga'], $cadeiras['cadeira'][$i]['nota_gb'] == null ? '0' : $cadeiras['cadeira'][$i]['nota_gb']), 1, ',', '');
-                            if($cadeiras['cadeira'][$i]['status'] == 2) {
-                                echo '#CCCCCC';
+                    <?php } ?>
+                    
+                </div>
+                <div class="line-end" 
+                    style="background-color: 
+                    <?php
+                        $media = number_format($uniNotas->calculaMedia($cadeiras['cadeira'][$i]['nota_ga'] == null ? '0' : $cadeiras['cadeira'][$i]['nota_ga'], $cadeiras['cadeira'][$i]['nota_gb'] == null ? '0' : $cadeiras['cadeira'][$i]['nota_gb']), 1, ',', '');
+                        if($cadeiras['cadeira'][$i]['status'] == 2) {
+                            echo '#CCCCCC';
+                        } else {
+                            if($media >= 6){
+                                echo 'rgb(135 255 120);';    
                             } else {
-                                if($media >= 6){
-                                    echo 'rgb(135 255 120);';    
-                                } else {
-                                    echo 'rgb(255, 94, 94)';
-                                }
+                                echo 'rgb(255, 94, 94)';
                             }
-                        ?>"
-                    >
-                        <div class="media">
-                            <span>Média</span>
-                            <span><?=$media?></span>
-                        </div>
+                        }
+                    ?>"
+                >
+                    <div class="media">
+                        <span>Média</span>
+                        <span><?=$media?></span>
                     </div>
                 </div>
-            </a>
+            </div>
             <?php } ?>
+
+        </div>
+
+        <div class="margin-spacer"></div>
+        <div class="body-table">
+            
+            <div class="line-cadeira">Grau A</div>
+            <div class="line-cinza"></div>
+            <div class="group-grau">
+                <div class="line-nota">
+                    <div class="desc-nota">
+                        <div class="text-nota">M1: 1/1</div>
+                    </div>
+                    <div class="editors-nota">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                </div>
+                <div class="line-nota">
+                    <div class="desc-nota">
+                        <div class="text-nota">M2: 0.5/1</div>
+                    </div>
+                    <div class="editors-nota">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="margin-spacer"></div>
+            <div class="line-cadeira">Grau B</div>
+            <div class="line-cinza"></div>
+            <div class="group-grau">
+                <div class="line-nota">
+                    <div class="desc-nota">
+                        <div class="text-nota">M1: 1/1</div>
+                    </div>
+                    <div class="editors-nota">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
