@@ -145,4 +145,24 @@ class UniNotas {
         }
     }
 
+    public function getGrau($id_cadeira, $grau) {
+        $sql="SELECT n.*
+        FROM unisinos_notas n
+        INNER JOIN unisinos_cadeiras c ON c.id = n.unisinos_notas_id
+        WHERE c.id = '".$id_cadeira."' AND n.grau = '".$grau."'";
+        $stmt = $this->connPdo->prepare($sql);
+        $stmt->execute();
+        $qtd = $stmt->rowCount();
+        if ($qtd > 0) {
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $retorno = [
+                "qtd" => $qtd,
+                "grau" => $result
+            ];
+            return $retorno;
+        } else {
+            return false;
+        }
+    }
+
 }

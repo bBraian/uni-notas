@@ -104,28 +104,28 @@ $uniNotas = new UniNotas();
         <div class="margin-spacer"></div>
         <div class="body-table">
             
-            <div class="line-cadeira">Grau A</div>
-            <div class="line-cinza"></div>
-            <div class="group-grau">
-                <div class="line-nota">
-                    <div class="desc-nota">
-                        <div class="text-nota">M1: 1/1</div>
-                    </div>
-                    <div class="editors-nota">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
+            <?php 
+                $grauA = $uniNotas->getGrau($cadeira_post, 'A');
+                if($grauA != "") {
+            ?>   
+                <div class="line-cadeira">Grau A</div>
+                <div class="line-cinza"></div>
+                <div class="group-grau">
+                    <?php 
+                        for($i = 0; $i < $grauA['qtd']; $i++) {
+                    ?>  
+                        <div class="line-nota">
+                            <div class="desc-nota">
+                                <div class="text-nota"><?=$grauA['grau'][$i]['descricao']?>: <?=$grauA['grau'][$i]['nota']?>/<?=$grauA['grau'][$i]['nota_max']?></div>
+                            </div>
+                            <div class="editors-nota">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
-                <div class="line-nota">
-                    <div class="desc-nota">
-                        <div class="text-nota">M2: 0.5/1</div>
-                    </div>
-                    <div class="editors-nota">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </div>
-            </div>
+            <?php } ?>
 
             <div class="margin-spacer"></div>
             <div class="line-cadeira">Grau B</div>
