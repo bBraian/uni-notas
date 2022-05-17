@@ -25,9 +25,9 @@ $uniNotas = new UniNotas();
 </head>
 <body>
     <header>
-        <h2 class="header-name"><i class="fa-solid fa-user"></i> Braian</h2> 
+        <h2 class="header-name"><i class="fa-solid fa-user" style="margin-right: 4px"></i>Braian</h2> 
         <h1 class="header-title">Unisinos Notas</h1> 
-        <h2 class="header-ra"><i class="fa-solid fa-id-card"></i> 1833298</h2> 
+        <h2 class="header-ra"><i class="fa-solid fa-id-card" style="margin-right: 4px"></i>1833298</h2> 
     </header>
 
     <div class="buttons">
@@ -128,19 +128,28 @@ $uniNotas = new UniNotas();
             <?php } ?>
 
             <div class="margin-spacer"></div>
-            <div class="line-cadeira">Grau B</div>
-            <div class="line-cinza"></div>
-            <div class="group-grau">
-                <div class="line-nota">
-                    <div class="desc-nota">
-                        <div class="text-nota">M1: 1/1</div>
-                    </div>
-                    <div class="editors-nota">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
+            <?php 
+                $grauA = $uniNotas->getGrau($cadeira_post, 'B');
+                if($grauA != "") {
+            ?>   
+                <div class="line-cadeira">Grau B</div>
+                <div class="line-cinza"></div>
+                <div class="group-grau">
+                    <?php 
+                        for($i = 0; $i < $grauA['qtd']; $i++) {
+                    ?>  
+                        <div class="line-nota">
+                            <div class="desc-nota">
+                                <div class="text-nota"><?=$grauA['grau'][$i]['descricao']?>: <?=$grauA['grau'][$i]['nota']?>/<?=$grauA['grau'][$i]['nota_max']?></div>
+                            </div>
+                            <div class="editors-nota">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
-            </div>
+            <?php } ?>
 
         </div>
     </div>

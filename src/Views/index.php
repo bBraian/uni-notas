@@ -23,9 +23,9 @@ $uniNotas = new UniNotas();
 </head>
 <body>
     <header>
-        <h2 class="header-name"><i class="fa-solid fa-user"></i> Braian</h2> 
+        <h2 class="header-name"><i class="fa-solid fa-user" style="margin-right: 4px"></i>Braian</h2> 
         <h1 class="header-title">Unisinos Notas</h1> 
-        <h2 class="header-ra"><i class="fa-solid fa-id-card"></i> 1833298</h2> 
+        <h2 class="header-ra"><i class="fa-solid fa-id-card" style="margin-right: 4px"></i>1833298</h2> 
     </header>
 
     <div class="buttons">

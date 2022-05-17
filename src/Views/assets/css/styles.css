@@ -17,34 +17,40 @@ header {
 .header-title {
     color: white;
     font-weight: bold;
-    font-size: 60px;
+    font-size: xxx-large;
+    text-align: center;
 }
 
 .header-name, .header-ra{
     color: white;
     font-size: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttons {
     width: 100%;
     display: flex;
-    margin: 30px 0;
+    margin: 37px 0 30px 0;
     justify-content: center;
     align-items: center;
 }
 
 .space {
     display: flex;
-    flex: 1;
-    justify-content: center;
+    height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
     flex-direction: column;
     align-items: center;
 }
 
 .body-table {
-    min-width: 700px;
-    max-width: 980px;
-    margin: -12px 0;
+    width: 90%;
+    max-width: 800px;
+    margin: -5px 0;
 }
 
 .line {
