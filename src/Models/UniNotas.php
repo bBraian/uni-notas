@@ -19,6 +19,25 @@ class UniNotas {
         $stmt->execute();
     }
 
+    public function deletarCadeira($id) {
+        $sql="DELETE FROM unisinos_cadeiras
+        WHERE id = '".$id."'";
+        $stmt = $this->connPdo->prepare($sql);
+        $stmt->execute();
+
+        $sql="DELETE FROM unisinos_notas
+        WHERE unisinos_notas_id = '".$id."'";
+        $stmt = $this->connPdo->prepare($sql);
+        $stmt->execute();
+    }
+
+    public function deletarNota($id) {
+        $sql="DELETE FROM unisinos_notas
+        WHERE id = '".$id."'";
+        $stmt = $this->connPdo->prepare($sql);
+        $stmt->execute();
+    }
+
     public function getCadeira($cadeira="") {
         if($cadeira!="") {
             $where = "id = '".$cadeira."'";
@@ -163,6 +182,23 @@ class UniNotas {
         } else {
             return false;
         }
+    }
+
+    public function calculaSePassou($nota, $nota_max) {
+        $result = ($nota_max * 60) / 100;
+        $retorno = "rgb(255, 94, 94)"; //Abaixo de 60%
+        if($nota >= $result) {
+            $retorno = "rgb(85 227 67);";
+        }
+        return $retorno;
+    }
+
+    public function atualizarNota($dados) {
+        $sql="UPDATE unisinos_notas
+        SET descricao = '".$dados['descricao']."', nota = '".$dados['nota']."', nota_max = '".$dados['nota_max']."'
+        WHERE id = '".$dados['id']."'";
+        $stmt = $this->connPdo->prepare($sql);
+        $stmt->execute();
     }
 
 }

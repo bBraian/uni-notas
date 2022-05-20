@@ -32,7 +32,7 @@ $uniNotas = new UniNotas();
 
     <div class="buttons">
         <button type="button" class="btn btn-outline-primary" id="btn-voltar" style="margin-right: 4px"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
-        <button type="button" class="btn btn-outline-danger" id="btn-voltar" style="margin:0 4px"><i class="fa-solid fa-trash"></i> Excluir</button>
+        <a href="javascript:void(0)" onclick="excluirCadeira(<?=$cadeira_post;?>)" class="btn btn-outline-danger" style="margin:0 4px"><i class="fa-solid fa-trash"></i> Excluir</a>
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModale" style="margin-left: 4px"><i class="fa-solid fa-plus"></i> Nota</button>
     </div>
 
@@ -116,11 +116,17 @@ $uniNotas = new UniNotas();
                     ?>  
                         <div class="line-nota">
                             <div class="desc-nota">
-                                <div class="text-nota"><?=$grauA['grau'][$i]['descricao']?>: <?=$grauA['grau'][$i]['nota']?>/<?=$grauA['grau'][$i]['nota_max']?></div>
-                            </div>
+                                <div class="text-nota">
+                                    <span id="descricao-<?=$grauA['grau'][$i]['id']?>"><?=$grauA['grau'][$i]['descricao']?></span>: 
+                                    <span id="nota-<?=$grauA['grau'][$i]['id']?>" style="color: <?=$uniNotas->calculaSePassou($grauA['grau'][$i]['nota'], $grauA['grau'][$i]['nota_max']) ?>"><?=$grauA['grau'][$i]['nota']?></span>
+                                    /
+                                    <span id="nota-max-<?=$grauA['grau'][$i]['id']?>"><?=$grauA['grau'][$i]['nota_max']?></div></span>
+                                </div>
                             <div class="editors-nota">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <a href="javascript:void(0)" class="a-no-style" id="edit-icon-<?=$grauA['grau'][$i]['id']?>" onclick="editarNota(<?=$grauA['grau'][$i]['id']?>)"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="javascript:void(0)" class="a-no-style" id="delete-icon-<?=$grauA['grau'][$i]['id']?>" onclick="excluirNota(<?=$grauA['grau'][$i]['id']?>)"><i class="fa-solid fa-trash-can"></i></a>
+                                <a href="javascript:void(0)" style="display: none" class="a-no-style" id="save-icon-<?=$grauA['grau'][$i]['id']?>" onclick="updateNota(<?=$grauA['grau'][$i]['id']?>)"><i class="fa-solid fa-floppy-disk"></i></a>
+                                <a href="javascript:void(0)" style="display: none" class="a-no-style" id="cancel-icon-<?=$grauA['grau'][$i]['id']?>" onclick="cancelUpdateNota(<?=$grauA['grau'][$i]['id']?>)"><i class="fa-solid fa-xmark"></i></a>
                             </div>
                         </div>
                     <?php } ?>
@@ -129,22 +135,30 @@ $uniNotas = new UniNotas();
 
             <div class="margin-spacer"></div>
             <?php 
-                $grauA = $uniNotas->getGrau($cadeira_post, 'B');
-                if($grauA != "") {
+                $grauB = $uniNotas->getGrau($cadeira_post, 'B');
+                if($grauB != "") {
             ?>   
                 <div class="line-cadeira">Grau B</div>
                 <div class="line-cinza"></div>
                 <div class="group-grau">
                     <?php 
-                        for($i = 0; $i < $grauA['qtd']; $i++) {
+                        for($i = 0; $i < $grauB['qtd']; $i++) {
                     ?>  
                         <div class="line-nota">
                             <div class="desc-nota">
-                                <div class="text-nota"><?=$grauA['grau'][$i]['descricao']?>: <?=$grauA['grau'][$i]['nota']?>/<?=$grauA['grau'][$i]['nota_max']?></div>
-                            </div>
+                                <div class="text-nota">
+                                    <span id="descricao-<?=$grauB['grau'][$i]['id']?>"><?=$grauB['grau'][$i]['descricao']?></span><input type="hidden" id="desc-backup-<?=$grauB['grau'][$i]['id']?>" value="<?=$grauB['grau'][$i]['descricao']?>"/>: 
+                                    <span id="nota-<?=$grauB['grau'][$i]['id']?>" style="color: <?=$uniNotas->calculaSePassou($grauB['grau'][$i]['nota'], $grauB['grau'][$i]['nota_max']) ?>"><?=$grauB['grau'][$i]['nota']?></span>
+                                    <input type="hidden" id="nota-backup-<?=$grauB['grau'][$i]['id']?>" value="<?=$grauB['grau'][$i]['nota']?>"/>
+                                    /
+                                    <input type="hidden" id="nota-max-backup-<?=$grauB['grau'][$i]['id']?>" value="<?=$grauB['grau'][$i]['nota_max']?>"/>
+                                    <span id="nota-max-<?=$grauB['grau'][$i]['id']?>"><?=$grauB['grau'][$i]['nota_max']?></div></span>
+                                </div>
                             <div class="editors-nota">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <a href="javascript:void(0)" class="a-no-style" id="edit-icon-<?=$grauB['grau'][$i]['id']?>" onclick="editarNota(<?=$grauB['grau'][$i]['id']?>)"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="javascript:void(0)" class="a-no-style" id="delete-icon-<?=$grauB['grau'][$i]['id']?>" onclick="excluirNota(<?=$grauB['grau'][$i]['id']?>)"><i class="fa-solid fa-trash-can"></i></a>
+                                <a href="javascript:void(0)" style="display: none" class="a-no-style" id="save-icon-<?=$grauB['grau'][$i]['id']?>" onclick="updateNota(<?=$grauB['grau'][$i]['id']?>)"><i class="fa-solid fa-floppy-disk"></i></a>
+                                <a href="javascript:void(0)" style="display: none" class="a-no-style" id="cancel-icon-<?=$grauB['grau'][$i]['id']?>" onclick="cancelUpdateNota(<?=$grauB['grau'][$i]['id']?>)"><i class="fa-solid fa-xmark"></i></a>
                             </div>
                         </div>
                     <?php } ?>

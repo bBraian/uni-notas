@@ -12,6 +12,9 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 45px;
+    position: fixed;
+    top: 0;
+    z-index: 3;
 }
 
 .header-title {
@@ -33,16 +36,13 @@ header {
 .buttons {
     width: 100%;
     display: flex;
-    margin: 37px 0 30px 0;
+    margin: 160px 0 30px 0;
     justify-content: center;
     align-items: center;
 }
 
 .space {
     display: flex;
-    height: 70vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
     flex-direction: column;
     align-items: center;
 }
@@ -136,7 +136,7 @@ header {
     font-size: larger;
     font-weight: 700;
     position: relative;
-    z-index: 5;
+    z-index: 2;
 }
 
 .line-cadeira:hover{
@@ -148,7 +148,6 @@ header {
     padding: 2px 8px 10px 8px;
     display: flex;
     width: 100%;
-    height: 100%;
     flex-direction: column;
     background-color: rgb(235, 235, 235);
     border-radius: 0 0 12px 12px;
@@ -202,7 +201,7 @@ header {
     font-weight: 500;
 }
 
-.fa-pen-to-square, .fa-trash-can{
+.fa-pen-to-square, .fa-trash-can, .fa-floppy-disk, .fa-xmark{
     transition: all 0.2s ease-in-out;
 }
 
@@ -213,10 +212,47 @@ header {
     border-radius: 8px;
     cursor: pointer;
 }
+
 .fa-trash-can:hover{
     color: red;
     padding: 5px;
     border: 1px solid red;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.fa-floppy-disk:hover{
+    color: #0095FF;
+    padding: 5px;
+    border: 1px solid #0095FF;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.fa-xmark:hover{
+    color: red;
+    padding: 4px 6px;
+    border: 1px solid red;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.a-no-style {
+    color: rgb(36, 36, 36);
+    text-decoration: none;
+}
+
+.input-descricao-edit { 
+    border: 1px solid #2c2c2c;
+    border-radius: 8px;
+    padding: 0 5px;
+    width: 30%;
+    margin-right: 1%;
+}
+
+.input-nota-edit {
+    border: 1px solid #2c2c2c;
+    border-radius: 8px;
+    padding: 0 5px;
+    width: 10%;
 }

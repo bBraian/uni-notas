@@ -49,6 +49,41 @@ switch ($tipo) {
         }
        
         break;
+    case "delete":
+        $id = $_POST['id'];
+        $uniNotas = new UniNotas();
+        $uniNotas->deletarCadeira($id);
+        $return = [
+            "erro" => "N",
+            "mensagem" => "Registro deletado"
+        ];
+
+        break;
+    case "delete_nota":
+        $id = $_POST['id'];
+        $uniNotas = new UniNotas();
+        $uniNotas->deletarNota($id);
+        $return = [
+            "erro" => "N",
+            "mensagem" => "Registro deletado"
+        ];
+
+        break;
+    case "update_nota":
+        $dados = [
+            "id" => $_POST['id'],
+            "descricao" => $_POST['descricao'],
+            "nota" => $_POST['nota'],
+            "nota_max" => $_POST['nota_max'],
+        ];
+        $uniNotas = new UniNotas();
+        $uniNotas->atualizarNota($dados);
+        $return = [
+            "erro" => "N",
+            "mensagem" => "Nota atualizada com sucesso!"
+        ];
+
+        break;
     default:
         $return = [
             "erro" => "S",
